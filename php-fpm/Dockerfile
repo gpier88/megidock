@@ -41,6 +41,7 @@ RUN set -xe; \
       apt-utils \
       gnupg2 \
       git \
+      rsync \
       #
       #--------------------------------------------------------------------------
       # Mandatory Software's Installation

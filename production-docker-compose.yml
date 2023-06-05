@@ -297,6 +297,7 @@ services:
         - ${APACHE_SITES_PATH}:/etc/apache2/sites-available
         - ${APACHE_SUBSITES_PATH}:/etc/apache2/sites-available/sites
         - ${APACHE_SSL_PATH}:/etc/apache2/ssl
+        - ${APACHE_SSL_PATH}/letsencrypt:/etc/letsencrypt/live
       ports:
         - "${APACHE_HOST_HTTP_PORT}:80"
         - "${APACHE_HOST_HTTPS_PORT}:443"

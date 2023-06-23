@@ -1,1 +1,2 @@
 * * * * * laradock /usr/bin/php /var/www/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /var/www/wp-content/plugins/site-build/scripts/check_build.sh >> /dev/null 2>&1

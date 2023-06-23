@@ -1335,11 +1335,6 @@ RUN if [ ${INSTALL_FAKETIME} = true ]; then \
     echo "/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1" > /etc/ld.so.preload \
 ;fi
 
-# INSTALL NODE AND YARN
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-  apt-get install -yqq nodejs npm && \
-  npm install -g yarn@1.22.5
-
 # Configure locale.
 ARG LOCALE=POSIX
 ENV LC_ALL ${LOCALE}

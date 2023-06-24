@@ -23,6 +23,10 @@ WORKDIR /var/www/
 
 COPY vhost.conf /etc/apache2/sites-enabled/vhost.conf
 
+ADD ./cron.d/reload /etc/cron.d/reload
+
+ADD ./auto_reload.sh /opt/auto_reload.sh
+
 ADD ./startup.sh /opt/startup.sh
 
 ENTRYPOINT ["/opt/docker/bin/entrypoint.sh"]

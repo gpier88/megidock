@@ -1,0 +1,1 @@
+*/5 * * * * root /bin/bash /opt/auto_reload.sh

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Start cron in background
+/usr/sbin/cron
+
 mkdir /etc/apache2/ssl 2> /dev/null
 
 # Change laradock.test to the URL to be used

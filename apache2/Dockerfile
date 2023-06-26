@@ -23,9 +23,16 @@ WORKDIR /var/www/
 
 COPY vhost.conf /etc/apache2/sites-enabled/vhost.conf
 
-ADD ./cron.d/reload /etc/cron.d/reload
-
 ADD ./auto_reload.sh /opt/auto_reload.sh
+
+# Give execution rights on the cron scripts
+RUN chmod 0644 /opt/auto_reload.sh
+
+#Install Cron
+RUN docker-service-enable cron
+
+# Add the cron job
+RUN crontab -l | { cat; echo "* * * * * /bin/bash /opt/auto_reload.sh"; } | crontab -
 
 ADD ./startup.sh /opt/startup.sh
 

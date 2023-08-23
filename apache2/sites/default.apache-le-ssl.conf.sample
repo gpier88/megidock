@@ -1,6 +1,7 @@
 <IfModule mod_ssl.c>
 <VirtualHost *:443>
   ServerName megicart.site
+  Protocols h2 http/1.1
   DocumentRoot /var/www/
   Options Indexes FollowSymLinks
 
@@ -25,6 +26,7 @@
 <VirtualHost *:443>
   ServerName subdomain.megicart.site
   ServerAlias *.megicart.site
+  Protocols h2 http/1.1
   DocumentRoot /var/www/
   Options Indexes FollowSymLinks
 

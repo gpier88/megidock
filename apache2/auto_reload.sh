@@ -21,7 +21,7 @@ restart_apache() {
 }
 
 # Controlla se ci sono file modificati negli ultimi 5 minuti
-if find "$directory" -type f -mmin -2 | read; then
+if find "$directory" -type f -mmin -5 | read; then
     # Controlla la configurazione di Apache2
     check_apache_config
 

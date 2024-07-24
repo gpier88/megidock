@@ -24,8 +24,31 @@ check_domain_ip() {
     fi
 }
 
+# Funzione per controllare la configurazione di Apache2
+check_apache_config() {
+  apachectl configtest
+  if [ $? -eq 0 ]; then
+    echo "Configurazione Apache2 OK"
+  else
+    echo "Errore nella configurazione Apache2"
+    exit 1
+  fi
+}
+
+# Funzione per riavviare Apache2
+restart_apache() {
+  /etc/init.d/apache2 reload
+  echo "Apache2 riavviato"
+}
+
 # Verifica l'indirizzo IP del dominio e del dominio www
 check_domain_ip
+
+# Controlla la configurazione di Apache2
+check_apache_config
+
+# Riavvia Apache2
+restart_apache
 
 # Genera il certificato SSL con Certbot
 certbot certonly --webroot -w /var/www/sites/$webroot/dist -d $domain -d www.$domain --non-interactive --agree-tos --email info@megicart.it

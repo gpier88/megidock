@@ -24,15 +24,20 @@ WORKDIR /var/www/
 COPY vhost.conf /etc/apache2/sites-enabled/vhost.conf
 
 ADD ./auto_reload.sh /opt/auto_reload.sh
+ADD ./check_ssl.sh /opt/check_ssl.sh
+ADD ./generate_ssl.sh /opt/generate_ssl.sh
 
 # Give execution rights on the cron scripts
-RUN chmod 0644 /opt/auto_reload.sh
+RUN chmod 0755 /opt/auto_reload.sh
+RUN chmod 0755 /opt/check_ssl.sh
+RUN chmod 0755 /opt/generate_ssl.sh
 
 #Install Cron
 RUN docker-service-enable cron
 
 # Add the cron job
 RUN crontab -l | { cat; echo "* * * * * /bin/bash /opt/auto_reload.sh"; } | crontab -
+RUN crontab -l | { cat; echo "* * * * * /bin/bash /opt/check_ssl.sh"; } | crontab -
 
 ADD ./startup.sh /opt/startup.sh
 

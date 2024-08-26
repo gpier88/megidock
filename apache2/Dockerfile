@@ -36,7 +36,7 @@ RUN chmod 0755 /opt/generate_ssl.sh
 RUN docker-service-enable cron
 
 # Add the cron job
-RUN crontab -l | { cat; echo "* * * * * /bin/bash /opt/auto_reload.sh"; } | crontab -
+RUN crontab -l | { cat; echo "*/5 * * * * /bin/bash /opt/auto_reload.sh"; } | crontab -
 RUN crontab -l | { cat; echo "* * * * * /bin/bash /opt/check_ssl.sh"; } | crontab -
 
 ADD ./startup.sh /opt/startup.sh

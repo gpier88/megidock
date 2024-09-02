@@ -20,11 +20,17 @@ restart_apache() {
   echo "Apache2 riavviato"
 }
 
-# Controlla se ci sono file modificati negli ultimi 5 minuti
-# if find "$directory" -type f -mmin -5 | read; then
+# se esiste il file "reload_apache" nella cartella specificata
+# allora controlla la configurazione di Apache2 e riavvia il servizio
+if [[ -f "$directory/reload_apache.run" ]] || [[ "$1" == "--force" ]]; then
   # Controlla la configurazione di Apache2
   check_apache_config
 
   # Riavvia Apache2
   restart_apache
-# fi
+
+  # Cancella il file "reload_apache.run" se esiste
+  if [[ -f "$directory/reload_apache.run" ]]; then
+    rm "$directory/reload_apache.run"
+  fi
+fi

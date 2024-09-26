@@ -13,9 +13,9 @@ domain=$2
 
  # Funzione per verificare l'indirizzo IP del dominio
 check_domain_ip() {
-    server_ip=$(dig +short megicart.it)
-    actual_ip=$(dig +short $domain)
-    actual_ip_www=$(dig +short www.$domain)
+    server_ip=$(/usr/bin/dig +short megicart.it)
+    actual_ip=$(/usr/bin/dig +short $domain)
+    actual_ip_www=$(/usr/bin/dig +short www.$domain)
     if [ "$actual_ip" == "$server_ip" ] && [ "$actual_ip_www" == "$server_ip" ]; then
         echo "Il dominio e il dominio www puntano correttamente all'indirizzo IP del server."
     else
@@ -26,7 +26,7 @@ check_domain_ip() {
 
 # Funzione per controllare la configurazione di Apache2
 check_apache_config() {
-  apachectl configtest
+  /usr/sbin/apachectl configtest
   if [ $? -eq 0 ]; then
     echo "Configurazione Apache2 OK"
   else
@@ -51,6 +51,6 @@ check_apache_config
 restart_apache
 
 # Genera il certificato SSL con Certbot
-certbot certonly --webroot -w /var/www/sites/$webroot/dist -d $domain -d www.$domain --non-interactive --agree-tos --email info@megicart.it
+/usr/bin/certbot certonly --webroot -w /var/www/sites/$webroot/dist -d $domain -d www.$domain --non-interactive --agree-tos --email info@megicart.it
 
 exit 0

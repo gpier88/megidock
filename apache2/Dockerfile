@@ -53,7 +53,7 @@ ARG APACHE_FOR_MAC_M1=false
 
 RUN apt update -yqq && \
     apt install -yqq \
-    python3 python3-venv libaugeas0
+    python3 python3-venv libaugeas0 dnsutils
 
 RUN python3 -m venv /opt/certbot/
 

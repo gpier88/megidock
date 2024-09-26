@@ -5,7 +5,7 @@ directory="/var/www/vhosts"
 
 # Funzione per controllare la configurazione di Apache2
 check_apache_config() {
-  apachectl configtest
+  /usr/sbin/apachectl configtest
   if [ $? -eq 0 ]; then
     echo "Configurazione Apache2 OK"
   else

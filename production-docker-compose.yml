@@ -368,7 +368,7 @@ services:
 
 ### MegiAvatar ################################################
     megiavatar:
-      image: megiavatar:latest
+      image: gpstiip88/megiavatar:latest
       ports:
         - "3000:3000"
       environment:

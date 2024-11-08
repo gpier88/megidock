@@ -5,9 +5,13 @@ networks:
     driver: ${NETWORKS_DRIVER}
 volumes:
   mysql:
+    # driver: ${VOLUMES_DRIVER}
+    external: true
+  megiavatar:
     driver: ${VOLUMES_DRIVER}
   phpmyadmin:
-    driver: ${VOLUMES_DRIVER}
+    # driver: ${VOLUMES_DRIVER}
+    external: true
   docker-in-docker:
     driver: ${VOLUMES_DRIVER}
 
@@ -139,6 +143,7 @@ services:
           - no_proxy
       volumes:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
+        - megiavatar:${APP_CODE_PATH_CONTAINER}/megiavatar
         - docker-in-docker:/certs/client
         - ./php-worker/supervisord.d:/etc/supervisord.d
       extra_hosts:
@@ -296,6 +301,7 @@ services:
         - ${APACHE_SUBSITES_PATH}:/etc/apache2/sites-available/sites
         - ${APACHE_SSL_PATH}:/etc/apache2/ssl
         - ${APACHE_SSL_PATH}/letsencrypt:/etc/letsencrypt
+        - megiavatar:${APP_CODE_PATH_CONTAINER}/megiavatar
       ports:
         - "${APACHE_HOST_HTTP_PORT}:80"
         - "${APACHE_HOST_HTTPS_PORT}:443"
@@ -356,4 +362,17 @@ services:
       expose:
         - 2375
       networks:
+        - backend
+
+### MegiAvatar ################################################
+    megiavatar:
+      image: megiavatar:latest
+      ports:
+        - "3000:3000"
+      environment:
+        - NODE_ENV=development
+      volumes:
+        - megiavatar:/app/frontend
+      networks:
+        - frontend
         - backend

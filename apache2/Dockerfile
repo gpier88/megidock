@@ -23,6 +23,7 @@ WORKDIR /var/www/
 
 COPY vhost.conf /etc/apache2/sites-enabled/vhost.conf
 
+ADD ./ovh_credentials.txt /opt/ovh_credentials.txt
 ADD ./auto_reload.sh /opt/auto_reload.sh
 ADD ./check_ssl.sh /opt/check_ssl.sh
 ADD ./generate_ssl.sh /opt/generate_ssl.sh

@@ -51,6 +51,6 @@ check_apache_config
 restart_apache
 
 # Genera il certificato SSL con Certbot
-/usr/bin/certbot certonly --webroot -w /var/www/sites/$webroot/dist -d $domain -d www.$domain --non-interactive --agree-tos --email info@megicart.it
+/opt/certbot/bin/certbot certonly --webroot -w /var/www/sites/$webroot/dist -d $domain -d www.$domain --non-interactive --agree-tos --email info@megicart.it
 
 exit 0

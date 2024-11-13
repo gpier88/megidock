@@ -39,7 +39,7 @@ RUN docker-service-enable cron
 RUN crontab -l | { cat; echo "* * * * * /bin/bash /opt/auto_reload.sh"; } | crontab -
 RUN crontab -l | { cat; echo "0 */1 * * * /bin/bash /opt/auto_reload.sh --force"; } | crontab -
 RUN crontab -l | { cat; echo "* * * * * /bin/bash /opt/check_ssl.sh"; } | crontab -
-RUN crontab -l | { cat; echo "0 0,12 * * * certbot renew -q"; } | crontab -
+RUN crontab -l | { cat; echo "0 0,12 * * * /opt/certbot/bin/certbot renew -q"; } | crontab -
 
 ADD ./startup.sh /opt/startup.sh
 
@@ -59,6 +59,9 @@ RUN python3 -m venv /opt/certbot/
 
 RUN /opt/certbot/bin/pip install --upgrade pip && \
     /opt/certbot/bin/pip install certbot certbot-apache certbot-dns-ovh pyOpenSSL==23.1.1
+
+# add certbot to path /usr/bin/certbot
+RUN ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 
 # Clean up
 RUN apt-get clean && \

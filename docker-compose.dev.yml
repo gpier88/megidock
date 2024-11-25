@@ -383,6 +383,9 @@ services:
         - DEBUG=${DEBUG}
         - API_PREFIX=${API_PREFIX}
         - LOG_LEVEL=INFO
+      depends_on:
+        - postgres
+        - redis
       networks:
         - frontend
         - backend

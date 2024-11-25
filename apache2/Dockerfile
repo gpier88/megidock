@@ -68,6 +68,9 @@ RUN ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# Enable proxy modules
+RUN a2enmod proxy proxy_http proxy_balancer lbmethod_byrequests
+
 RUN if [ ${APACHE_FOR_MAC_M1} = true ]; then \
     # Change application source from deb.debian.org to aliyun source
     wget -O "/usr/local/bin/go-replace" "https://github.com/webdevops/goreplace/releases/download/1.1.2/gr-arm64-linux" && \

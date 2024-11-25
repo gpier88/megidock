@@ -370,6 +370,7 @@ services:
 
 ### MegiAvatar ################################################
     megiavatar:
+      restart: always
       image: gpstiip88/megiavatar:latest
       ports:
         - "8888:8888"
@@ -397,6 +398,7 @@ services:
 
 ### PostgreSQL ###########################################
     postgres:
+      restart: always
       build:
         context: ./postgres
         args:
@@ -436,6 +438,7 @@ services:
 ### pgAdmin ##############################################
     pgadmin:
       image: dpage/pgadmin4:latest
+      restart: always
       environment:
         - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}"
         - "PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}"
@@ -452,6 +455,7 @@ services:
 ### Redis ################################################
     redis:
       build: ./redis
+      restart: always
       volumes:
         - ${DATA_PATH_HOST}/redis:/data
       command: --requirepass ${REDIS_PASSWORD}

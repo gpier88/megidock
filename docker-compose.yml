@@ -52,6 +52,8 @@ volumes:
     driver: ${VOLUMES_DRIVER}
   react:
     driver: ${VOLUMES_DRIVER}
+  megiavatar:
+    driver: ${VOLUMES_DRIVER}
 
 services:
 
@@ -2126,6 +2128,34 @@ services:
         - KEYCLOAK_DATABASE_PASSWORD=${KEYCLOAK_POSTGRES_PASSWORD}
       depends_on:
         - postgres
+      networks:
+        - frontend
+        - backend
+
+### MegiAvatar ################################################
+    megiavatar:
+      restart: always
+      image: gpstiip88/megiavatar:latest
+      ports:
+        - "8888:8888"
+      environment:
+        - POSTGRES_DB=${POSTGRES_DB}
+        - POSTGRES_USER=${POSTGRES_USER}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        - POSTGRES_HOST=${MEGIAVATAR_POSTGRES_HOST}
+        - POSTGRES_PORT=${POSTGRES_PORT}
+        - REDIS_URL=redis://redis:${REDIS_PORT}
+        - OPENAI_API_KEY=${OPENAI_API_KEY}
+        - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+        - OPENAI_MODEL=${OPENAI_MODEL}
+        - ELEVEN_LABS_VOICE_ID=${ELEVEN_LABS_VOICE_ID}
+        - ELEVEN_LABS_MODEL_ID=${ELEVEN_LABS_MODEL_ID}
+        - DEBUG=${DEBUG}
+        - API_PREFIX=${API_PREFIX}
+        - LOG_LEVEL=INFO
+      depends_on:
+        - postgres
+        - redis
       networks:
         - frontend
         - backend

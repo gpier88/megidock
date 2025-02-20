@@ -53,6 +53,7 @@
   RewriteCond %{REQUEST_URI} !^/wp-admin [NC]
   RewriteCond %{REQUEST_URI} !^/wp-includes [NC]
   RewriteCond %{REQUEST_URI} !^/wp-content [NC]
+  RewriteCond %{REQUEST_URI} !\?fl_builder&fl_builder_ui [NC]
   RewriteCond %{REQUEST_URI} !^/graphql [NC]
   RewriteCond %{REQUEST_URI} !^/wp-login\.php [NC]
   RewriteRule ^/(.*)$ https://%1.megicart.it/$1 [R=301,L]
